@@ -1,5 +1,15 @@
 # SmsForwarder_tgbot
 
+一个支持 [SmsForwarder](https://github.com/pppscn/SmsForwarder)远程控制的 Telegram Bot
+
+支持
+
+1. 获取详情
+2. 获取手机电量
+3. 发送短信
+4. 查询短信
+5. 查询通话
+
 ## 效果预览
 
 ![md](https://tncache1-f1.v3mh.com/image/2025/08/13/7b3eab9d9a128b846843a2feefe2e7d3.png)
