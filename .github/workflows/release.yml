@@ -70,16 +70,85 @@ jobs:
           path: ./artifacts
 
       - name: Create Release
-        uses: softprops/action-gh-release@v1
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          files: |
-            artifacts/SmsForwarder_tgbot-linux-amd64/SmsForwarder_tgbot-linux-amd64
-            artifacts/SmsForwarder_tgbot-linux-arm64/SmsForwarder_tgbot-linux-arm64
-            artifacts/SmsForwarder_tgbot-windows-amd64/SmsForwarder_tgbot-windows-amd64.exe
-            artifacts/SmsForwarder_tgbot-windows-arm64/SmsForwarder_tgbot-windows-arm64.exe
-            artifacts/SmsForwarder_tgbot-darwin-amd64/SmsForwarder_tgbot-darwin-amd64
-            artifacts/SmsForwarder_tgbot-darwin-arm64/SmsForwarder_tgbot-darwin-arm64
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
           draft: false
           prerelease: false
-          generate_release_notes: true
-          token: ${{ secrets.GITHUB_TOKEN }} 
+          body: |
+            ## 构建版本
+            
+            ### Linux
+            - **AMD64**: [SmsForwarder_tgbot-linux-amd64](https://github.com/${{ github.repository }}/releases/download/${{ github.ref }}/SmsForwarder_tgbot-linux-amd64)
+            - **ARM64**: [SmsForwarder_tgbot-linux-arm64](https://github.com/${{ github.repository }}/releases/download/${{ github.ref }}/SmsForwarder_tgbot-linux-arm64)
+            
+            ### Windows
+            - **AMD64**: [SmsForwarder_tgbot-windows-amd64.exe](https://github.com/${{ github.repository }}/releases/download/${{ github.ref }}/SmsForwarder_tgbot-windows-amd64.exe)
+            - **ARM64**: [SmsForwarder_tgbot-windows-arm64.exe](https://github.com/${{ github.repository }}/releases/download/${{ github.ref }}/SmsForwarder_tgbot-windows-arm64.exe)
+            
+            ### macOS
+            - **AMD64**: [SmsForwarder_tgbot-darwin-amd64](https://github.com/${{ github.repository }}/releases/download/${{ github.ref }}/SmsForwarder_tgbot-darwin-amd64)
+            - **ARM64**: [SmsForwarder_tgbot-darwin-arm64](https://github.com/${{ github.repository }}/releases/download/${{ github.ref }}/SmsForwarder_tgbot-darwin-arm64)
+
+      - name: Upload Release Assets
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./artifacts/SmsForwarder_tgbot-linux-amd64/SmsForwarder_tgbot-linux-amd64
+          asset_name: SmsForwarder_tgbot-linux-amd64
+          asset_content_type: application/octet-stream
+
+      - name: Upload Linux ARM64
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./artifacts/SmsForwarder_tgbot-linux-arm64/SmsForwarder_tgbot-linux-arm64
+          asset_name: SmsForwarder_tgbot-linux-arm64
+          asset_content_type: application/octet-stream
+
+      - name: Upload Windows AMD64
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./artifacts/SmsForwarder_tgbot-windows-amd64/SmsForwarder_tgbot-windows-amd64.exe
+          asset_name: SmsForwarder_tgbot-windows-amd64.exe
+          asset_content_type: application/octet-stream
+
+      - name: Upload Windows ARM64
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./artifacts/SmsForwarder_tgbot-windows-arm64/SmsForwarder_tgbot-windows-arm64.exe
+          asset_name: SmsForwarder_tgbot-windows-arm64.exe
+          asset_content_type: application/octet-stream
+
+      - name: Upload macOS AMD64
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./artifacts/SmsForwarder_tgbot-darwin-amd64/SmsForwarder_tgbot-darwin-amd64
+          asset_name: SmsForwarder_tgbot-darwin-amd64
+          asset_content_type: application/octet-stream
+
+      - name: Upload macOS ARM64
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./artifacts/SmsForwarder_tgbot-darwin-arm64/SmsForwarder_tgbot-darwin-arm64
+          asset_name: SmsForwarder_tgbot-darwin-arm64
+          asset_content_type: application/octet-stream 
