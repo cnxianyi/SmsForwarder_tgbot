@@ -64,17 +64,19 @@ jobs:
 
       - name: Download all artifacts
         uses: actions/download-artifact@v4
+        with:
+          path: ./artifacts
 
       - name: Create Release
         uses: softprops/action-gh-release@v1
         with:
           files: |
-            SmsForwarder_tgbot-linux-amd64
-            SmsForwarder_tgbot-linux-arm64
-            SmsForwarder_tgbot-windows-amd64.exe
-            SmsForwarder_tgbot-windows-arm64.exe
-            SmsForwarder_tgbot-darwin-amd64
-            SmsForwarder_tgbot-darwin-arm64
+            artifacts/SmsForwarder_tgbot-linux-amd64/SmsForwarder_tgbot-linux-amd64
+            artifacts/SmsForwarder_tgbot-linux-arm64/SmsForwarder_tgbot-linux-arm64
+            artifacts/SmsForwarder_tgbot-windows-amd64/SmsForwarder_tgbot-windows-amd64.exe
+            artifacts/SmsForwarder_tgbot-windows-arm64/SmsForwarder_tgbot-windows-arm64.exe
+            artifacts/SmsForwarder_tgbot-darwin-amd64/SmsForwarder_tgbot-darwin-amd64
+            artifacts/SmsForwarder_tgbot-darwin-arm64/SmsForwarder_tgbot-darwin-arm64
           draft: false
           prerelease: false
           generate_release_notes: true
